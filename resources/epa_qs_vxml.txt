@@ -1,0 +1,16 @@
+What is the suspected violator's name? Give the name or 'Unknown'
+Where is the Violation occuring? Give the location or 'Unknown'
+In what city was the violation observed? Give the city or 'Unknown'
+In what state was the violation observed? Give the state or 'Unknown'
+In what ZIP Code was the violation observed? Give the ZIP code or 'Unknown'
+What party is responsible for the violation? Choose one of the following:\\n Individual, Company, Government/Military, Unknown
+Is the suspected Violation still occuring? Answer either 'yes' or 'no'
+What is the date of the incident?
+Is this an emergency? Answer either 'yes' or 'no'
+What was the intention behind the violation? Answer either 'intentional', 'accidental' or 'unknown'
+What is the violation method? \\n Your Options are: 'Resease', 'Dump/Buried', 'Spill', 'Spray', 'Fill' or 'Falsified'
+What Subsjects are being affected by the violation? Your options are 'Land', 'Water', 'Air', 'Worker' and 'Dokuments'. Choose all applicable options.
+Please Describe the Violation in your own words.
+You may give your email for future correspondance. This, however is not required. Just leave the field empty if you don't wish to give your name.
+You may give your email address for future correspondance. This, however is not required. Just leave the field empty if you don't wish to give your email.
+You may give your phone number for future correspondance. This, however is not required. Just leave the field empty if you don't wish to give your phone number.

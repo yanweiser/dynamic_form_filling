@@ -1,0 +1,17 @@
+
+*.pyc
+src/api_secrets.py
+api_test.ipynb
+output/*
+presentation/~$IM-short-presentattion.pptx
+presentation/~$IM-short-presentation.pptx
+src/test_server.py
+eval/results/*/
+eval/to_test/*/
+src/api_secrets.py
+result_store
+elements.md
+results_so_far.md
+presentation
+logs/run.log
+exploration.ipynb
