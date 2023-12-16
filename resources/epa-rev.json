@@ -35,7 +35,7 @@
         "options": ["Individual", "Company", "Government/Military", "Unknown"],
         "answer": null
     },
-    "Is the suspected Violation still occuring?": {
+    "Is the suspected Violation still occurring?": {
         "type": "checkbox",
         "required": true,
         "options": ["yes", "no"],
