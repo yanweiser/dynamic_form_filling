@@ -27,7 +27,7 @@
         "options": ["male", "female"],
         "answer": null
     },
-    "Your Adress": {
+    "Your Address": {
         "type": "text-field",
         "required": true,
         "answer": null
@@ -97,7 +97,7 @@
             "required": true,
             "answer": null
         },
-        "Doctor's Adress": {
+        "Doctor's Address": {
             "type": "text-field",
             "required": true,
             "answer": null
