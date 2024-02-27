@@ -1,7 +1,7 @@
 {
     "model":{
         "dialogue_manager": "gpt",
-        "question_extraction": "gpt",
+        "question_extraction": "dummy",
         "question_grouping": "gpt",
         "grouping_validation": "gpt",
         "question_generation": "gpt",
@@ -14,14 +14,15 @@
         "information_extraction":"gpt",
         "user": "gpt"
     },
-    "form": "disc",
+    "openai_model": "gpt-3.5-turbo",
+    "form": "epa",
     "grouping_size": 7,
     "server_addr": "127.0.0.1",
     "server_port": "5000",
     "special_mode": "no",
     "autouser": true,
-    "num_dialogues": 10,
+    "num_dialogues": 1,
     "temperature": 0,
     "base temp": 0.0,
-    "high temp": 0.5
+    "high temp": 0.2
 }

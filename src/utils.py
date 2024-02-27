@@ -12,42 +12,37 @@ import random
 
 try:
     import src.output_matching as output_matching
+    from src.api_secrets import API_KEY
 except ImportError:
     try:
         import output_matching
+        from api_secrets import API_KEY
     except ImportError as e:
         exit(e)
+        
+client = openai.OpenAI(api_key=API_KEY)
 
 
 form_map = {
-    'ss5': 'resources/ss5-form.json',
-    'ss5-crop': 'resources/ss5-form-crop.json',
-    'epa': 'resources/epa-rev.json',
+    'ss5': 'resources/ss5.json',
+    'epa': 'resources/epa.json',
     'med': 'resources/med.json',
-    'disc': 'resources/disc.json'
+    'inv': 'resources/inv.json'
 }
 
 
 def call_openai(messages, config):
     try:
-        response = openai.ChatCompletion.create(
-            model='gpt-3.5-turbo',
+        response = client.chat.completions.create(
+            model=config["openai_model"],
             messages = messages,
             temperature = config['temperature']
         )
-    except (openai.error.RateLimitError, openai.error.ServiceUnavailableError, openai.error.Timeout) as e:
-        print('Model is overloaded, waiting for API ', end='')
-        sys.stdout.flush()
-        for i in range(4):
-            print('.', end='')
-            sys.stdout.flush()
-            sleep(1)
-        print(' Trying again')
-        return call_openai(messages, config)
-    except (openai.error.InvalidRequestError, openai.error.APIError, openai.error.APIConnectionError) as e:
+    except (openai.APIError, openai.APIConnectionError) as e:
         logging.error('encountered critical error while calling OpenAI API %s', e)
         exit(e)
-    answer = response.choices[0].message['content']
+    # print("got a response, yay")
+    answer = response.choices[0].message.content.strip()
     # answer = answer.replace('\'', '\"')
     answer = re.sub(r'(?<=\w)"(?=\w)', '\'', answer)
     return answer
@@ -117,7 +112,7 @@ def auto_user(question, config):
         prompt = prompt.replace('[Insert 3]', "an application for a social security card")
     elif config['form'] == 'med':
         prompt = prompt.replace('[Insert 3]', "your medical history"),
-    elif config['form'] == 'disc':
+    elif config['form'] == 'inv':
         prompt = prompt.replace('[Insert 3]', "new invention of yours")
 
     messages = [
@@ -166,14 +161,6 @@ def make_api_call(messages, model, config):
     return answer
 
 
-
-def create_parser():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--form', default='ss5', required=False, choices=['ss5'])
-    parser.add_argument('--demo', action='store_true', required=False, default=True)
-
-    return parser
-
 def init_dl_state():
     state = {
         "chunks": {},
@@ -213,12 +200,7 @@ def update_dm_state(manager):
 
     return manager
 
-def load_form(name, crop = False):
-    if crop:
-        path = form_map['ss5-crop']
-        with open(path, 'r') as f:
-            form = json.load(f)
-        return form
+def load_form(name):
     path = form_map[name]
     with open(path, 'r') as f:
         form = json.load(f)
@@ -304,11 +286,6 @@ def search(chunk, answered):
                 answered.append(False)
             else:
                 answered.append(True)
-        # else:
-        #     if chunk['answer'] is None:
-        #         answered.append(False)
-        #     else:
-        #         answered.append(True)
     else:
         for k in ks:
             answered += search(chunk[k], [])
@@ -352,8 +329,6 @@ def check_likeness(old, new):
     for k in new_keys:
         if k not in old_keys:
             return False
-    # if not old_keys == new_keys:
-    #     return False
     for key in new_keys:
         if key == 'answer':
             continue
@@ -373,7 +348,6 @@ def get_unanswered(chunk, state):
         if state[key] in ['answered', 'validated']:
             continue
         ret[key] = chunk[key]
-    # ret = rec_del_answered(ret)
     return ret
 
 

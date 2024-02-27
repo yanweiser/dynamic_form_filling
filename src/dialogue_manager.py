@@ -138,7 +138,7 @@ class Dialogue_Manager:
     
 
     def question_grouping(self, questions, config, fb = False):
-        interaction = {"module": "question_grouping"}
+        interaction = {"module": "Question Grouping"}
         if config['model']['question_grouping'] == "dummy" or fb:
             if isinstance(questions, str):
                 questions = json.loads(questions)
@@ -198,7 +198,7 @@ class Dialogue_Manager:
 
 
     def question_extraction(self, config, fb = False):
-        interaction = {'module': 'question_extraction'}
+        interaction = {'module': 'Question Extractor'}
         qs = {}
         if config['model']['question_extraction'] == "dummy" or fb:
             inp = {}
@@ -255,7 +255,7 @@ class Dialogue_Manager:
 
 
     def grouping_validation(self, groups, questions, config, fb = False):
-        interaction = {'module': 'grouping_validation'}
+        interaction = {'module': 'Grouping validator'}
         if config['model']['grouping_validation'] == "dummy" or fb:
             if isinstance(groups, dict):
                 groups = json.dumps(groups)
@@ -304,7 +304,7 @@ class Dialogue_Manager:
         for key, val in self.grouping.items():
             self.chunks[key] = {field_name: self.form[field_name] for field_name in val}
             self.state['chunks'][key] = 'empty'
-            self.cf_managers[key] = chunk_filling.ChunkFilling(self.form, 
+            self.cf_managers[key] = chunk_filling.ChunkFiller(self.form, 
                                                                self.chunks[key], 
                                                                key)
             

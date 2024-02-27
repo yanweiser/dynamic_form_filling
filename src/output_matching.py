@@ -1,7 +1,6 @@
 import re
 import logging
 import json
-from pprint import pprint
 
 re_dialogue_manager = re.compile("\{[\s\n]*\"next action\":[\s\n]*\".+\",[\s\n]*\"chunk to work on\":[\s\n]*(\".+\"|null)[\s\n]*\}")
 re_question_extraction = re.compile("\{[\s\n]*\"summary\":[\s\n]*\".+\"[\s\n]*\}")
@@ -51,9 +50,7 @@ def match_output(output, module):
         output = remove_nl(output)
         tmp = expression.finditer(output)
         lst_tmp = [i for i in tmp]
-        # print(lst_tmp)
         if not lst_tmp:
-            # print(1)
             return None, output
         res = lst_tmp[-1]
         span = res.span()
@@ -65,10 +62,8 @@ def match_output(output, module):
             if isinstance(loaded['answer'], dict):
                 loaded['answer'] = json.dumps(loaded['answer'])
                 group = json.dumps(loaded)
-                # print(2)
     except json.decoder.JSONDecodeError as e:
         logging.warning(str(e))
-        # print(3)
         return None, output
     
     return span, group
@@ -104,43 +99,3 @@ def remove_nl(output):
         if output[i] == "\n" and in_str:
             output = output[:i] + "; " + output[i+1:]
     return output
-
-
-                
-
-# sanity checks
-if __name__ == '__main__':
-    # print('Dialogue Manager:')
-    # print(bool(re_dialogue_manager.search('{"next action": "fill_chunk", "chunk to work on": null}?')))
-    # print('Question Extraction:')
-    # print(re_question_extraction.search('{"question": "Please provide the name to be shown on the card, including the first name, full middle name (if applicable), and last name. If the full name at birth is different than the name on the card, please provide the full name at birth as well. Additionally, if you have used any other names, please enter them here, separating them by a comma (,)."}'))
-    # print('Question Grouping:')
-    # print(re_question_grouping.search('{"Group 1": ["1", "2", "11", "12", "13"]}{"Group 2": ["3", "4", "14"], "Group 3": ["5", "6", "7", "8"], "Group 4": ["9"], "Group 5": ["10"], "Group 6": ["15"], "Group 7": ["16"], "Group 8": ["17"], "Group 9": ["18"]}'))
-    # print('Question Generation:')
-    # print(re_question_generation.search('{ "question": "What is the full name you would like to appear on the card?" }'))
-    # print('Answer Parsing:')
-    # print(re_answer_parsing.search('{"full name": "Yan Eric Weiser", "fuller name": "also yan"}'))
-
-    test_s = """{"Social Security Information": ["11", "12", "13", "14", "15", "16", "17", "18"],
-"Personal Information": ["11", "12", "13", "14", "15", "16", "17", "18"]}"""
-
-    # span, group = match_output(test_s, 'user')
-    # print(span)
-    print(test_s)
-    print()
-    # test_s = test_s.replace('\n', '\\n')
-    test_s = remove_nl(test_s)
-    # test_s = test_s.replace('[nl]', '\n')
-    # x = json.loads(test_s)
-    # pprint(json.dumps(x))
-  
-    # print(x)
-    print(test_s)
-    print()
-    # print(re_user.pattern)
-    # print()
-    mat = re_question_grouping.search(test_s)
-    print(mat.group())
-    x = json.loads(mat.group())
-    print()
-    pprint(x)

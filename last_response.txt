@@ -1,1 +1,1 @@
-{"question": "When was this Invention conceived? Describe how this Invention came to be. Give a detailed description of the Invention.", "fields": ["When was this Invention conceived?", "Describe how this Invention came to be", "Give a detailed description of the Invention"]}
+{"answer": "Unknown"}

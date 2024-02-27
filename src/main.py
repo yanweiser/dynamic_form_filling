@@ -9,13 +9,11 @@ try:
     import src.utils as utils
     import src.dialogue_manager as dialogue_manager
     import src.answer_parser as answer_parser
-    from src.api_secrets import API_KEY
 except ImportError:
     try:
         import utils
         import dialogue_manager
         import answer_parser
-        from api_secrets import API_KEY
     except ImportError as e:
         print('ERROR:')
         print(e)
@@ -139,7 +137,7 @@ def interpret_cf(cfm, out, config):
     """interprets the output of the Chunk Filling manager module and runs the appropriate functions
 
     Args:
-        cfm (ChunkFilling): Chunk Filling Dialogue Manger object
+        cfm (ChunkFiller): Chunk Filling Dialogue Manger object
         output (str): output given by the CFM as serialized json
         config (dict): config info
 
@@ -207,13 +205,8 @@ def interpret_cf(cfm, out, config):
         # get object returned as well as the filled out part and dialogue
         parser = run_dialogue(parser, config)
 
-        # logging.info('parser returned folling chunk: %s', json.dumps(parser.chunk))
-
         # put filled out chunk from parser into chunk from cfm
         cfm.chunk = utils.fill_in_parts(cfm.chunk, parser.chunk)
-
-        # logging.info('has been filled into cfm chunk: %s', json.dumps(cfm.chunk))
-
 
         # append dialogue from parser to dialogue of cfm (extend)
         cfm.dialogue.extend(parser.dialogue)
@@ -328,7 +321,7 @@ def interpret_dm(manager, output, config):
     
 
 def main(config):
-    form = utils.load_form(config['form'], crop = False)
+    form = utils.load_form(config['form'])
     manager = dialogue_manager.Dialogue_Manager(form)
     out_dir = utils.get_out_dir()
     config['out_dir'] = out_dir
@@ -363,8 +356,6 @@ if __name__ == '__main__':
                         filemode='w', 
                         format='%(levelname)s: %(message)s')
     config = utils.load_config("config/config.json") 
-    # setting key
-    openai.api_key = API_KEY
     config = utils.check_specials(config)
     for i in range(config['num_dialogues']):
         main(config)

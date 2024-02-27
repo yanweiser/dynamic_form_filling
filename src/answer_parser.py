@@ -27,7 +27,7 @@ class AnswerParser:
 
 
     def call(self, config, fb=False):
-        interaction = {'module': 'answer_parsing'}
+        interaction = {'module': 'Answer Parser'}
         if config['model']['answer_parsing'] == "dummy" or fb:
             ret = {
                 "next action": "information_extraction"
@@ -68,7 +68,7 @@ class AnswerParser:
         
 
     def repeat_question(self, config, fb=False):
-        interaction = {'module': 'repeat_question'}
+        interaction = {'module': 'Repeated Question Generator'}
         if config['model']['repeat_question'] == "dummy" or fb:
             last_q = self.dialogue[-2]['Assistant']
             ret = {
@@ -107,7 +107,7 @@ class AnswerParser:
 
 
     def follow_up_question(self, config, fb=False):
-        interaction = {'module': 'follow_up_question'}
+        interaction = {'module': 'Follow-up Question Generator'}
         if config['model']['follow_up_question'] == "dummy" or fb:
             last_q = self.dialogue[-2]['Assistant']
             ret = {
@@ -193,7 +193,7 @@ class AnswerParser:
         
 
     def form_filling(self, config, fb = False):
-        interaction = {'module': 'form_filling'}
+        interaction = {'module': 'Form Filler'}
         if config['model']['form_filling'] == "dummy" or fb:
             self.chunk = utils.find_and_fill(self.chunk, self.info)
             interaction['output'] = json.dumps(self.chunk)

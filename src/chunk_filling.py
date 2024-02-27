@@ -15,7 +15,7 @@ except ImportError:
         print(e)
         exit(-1)
 
-class ChunkFilling:
+class ChunkFiller:
     def __init__(self, form, chunk, name):
         self.state = utils.init_cf_state(chunk)
         self.chunk = chunk
@@ -31,7 +31,7 @@ class ChunkFilling:
 
 
     def call(self, config, fb = False):
-        interaction = {'module': 'chunk_filling'}
+        interaction = {'module': 'Chunk Filler'}
         if all([self.state['fields'][f] == 'validated' for f in self.state['fields']]):
             interaction['output'] = json.dumps({"next action": "stop"})
             interaction['prompt'] = f'used fallback mechanism on current state: {json.dumps(self.state)}'
@@ -77,7 +77,7 @@ class ChunkFilling:
             return out_trim
     
     def question_generation(self, config, fb = False):
-        interaction = {'module': 'question_generation'}
+        interaction = {'module': 'Question generator'}
         if config['model']['question_generation'] == "dummy" or fb:
             q = utils.find_question(self.chunk)
             if q['question'] is None:
@@ -127,7 +127,7 @@ class ChunkFilling:
 
 
     def fill_validation(self, config, fb = False):
-        interaction = {'module': 'fill_validation'}
+        interaction = {'module': 'Answer Validator'}
         if config['model']['fill_validation'] == "dummy" or fb:
             for key, val in self.state['fields'].items():
                 if val == 'answered':
