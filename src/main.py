@@ -1,7 +1,6 @@
 import os
 import json
 import logging
-import openai
 import copy
 from datetime import datetime
 

@@ -1,4 +1,3 @@
-import argparse
 from typing import Dict
 import json
 import logging
@@ -6,7 +5,6 @@ import openai
 import os
 from time import sleep
 import re
-import sys
 import requests
 import random
 

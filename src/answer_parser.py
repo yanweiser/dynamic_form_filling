@@ -4,13 +4,11 @@ import json
 
 try:
     import src.utils as utils
-    import src.chunk_filling as chunk_filling
     import src.output_matching as output_matching
 except ImportError:
     try:
         import output_matching
         import utils
-        import chunk_filling
     except ImportError as e:
         print('ERROR:')
         print(e)
