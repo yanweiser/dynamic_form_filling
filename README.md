@@ -1,12 +1,11 @@
-# IM Project
+# Dynamic Form Filling in a Multi-Agent setup using LLMs
 
-Code and Files for the IM Project on free form-filling using LLMs. 
+This repository contains the code to run the system described in [paper](link_to_paper). 
+The System was tested in a Linux environment with Python 3.8+ and a single Nvidia A100 (80GB) GPU.
 
-## Contents
+## Using the System
 
-* [JSON Form](ss5-form.json) to be filled in json format. Original can be found [here](https://www.ssa.gov/forms/ss-5.pdf).
-* [Text Form](ss5-form-text.json) containing text representations of fields in the form, during runtime these would be generated automatically.
-* [Prompt Blueprints](prompt_blueprints.json) containing blueprints for all prompts except the DM prompt.
-* [DM Prompt](DM-prompt-blueprint.txt)
-* [Exploration Notebook](exploration.ipynb), showing how to use blueprints and create Prompts.
+* [How to run Form Filling](docs/how_to_run_form_filling.md)
+* [How to eval your runs](docs/how_to_run_form_filling.md)
+* [How to add forms](docs/how_to_run_form_filling.md)
 

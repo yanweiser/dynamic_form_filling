@@ -2,7 +2,7 @@
 *.pyc
 src/api_secrets.py
 api_test.ipynb
-output/*
+output/*/
 presentation/~$IM-short-presentattion.pptx
 presentation/~$IM-short-presentation.pptx
 src/test_server.py
